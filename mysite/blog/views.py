@@ -18,9 +18,11 @@ class PostListView(ListView):
 def post_list(request, tag_slug=None):
     object_list = Post.published.all()
     tag = None
+
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
+
     paginator = Paginator(object_list, 3)  # По 3 статьи на каждой странице.
     page = request.GET.get("page")
     try:
@@ -77,9 +79,11 @@ def post_detail(request, year, month, day, post):
     # Список активных комментариев для этой статьи.
     comments = post.comments.filter(active=True)
     new_comment = None
+
     if request.method == "POST":
         # Пользователь отправил комментарий.
         comment_form = CommentForm(data=request.POST)
+
         if comment_form.is_valid():
             # Создаем комментарий, но пока не сохраняем в базе данных.
             new_comment = comment_form.save(commit=False)

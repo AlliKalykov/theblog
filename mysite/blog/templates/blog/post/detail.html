@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load blog_tags %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -12,7 +13,7 @@
             {% endfor %}
         </p>
     <p class="date">Published {{ post.publish }} by {{ post.author }}</p>
-    {{ post.body|linebreaks }}
+    {{ post.body|markdown }}
     <p>
         <a href="{% url "blog:post_share" post.id %}">Share this post</a>
     </p>
@@ -23,9 +24,9 @@
         <h2>Similar post don't fount</h2>
     {% endif %}
 
-    {% for similar_post in similar_posts %}
+    {% for post in similar_posts %}
         <h4>
-            <a href="{{ similar_post.get_absolute_url }}"> {{ similar_post.title }}</a>
+            <a href="{{ post.get_absolute_url }}"> {{ post.title }}</a>
         </h4>
             <!-- <p class="date">Published {{ similar_post.publish }} by {{ similar_post.author }}</p> -->
     {% endfor %}
