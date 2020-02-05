@@ -80,7 +80,7 @@ WSGI_APPLICATION = "mysite.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
-from .db_info import (
+from .dbinfo import (
     DB_USER,
     USER_PASWORD,
 )
